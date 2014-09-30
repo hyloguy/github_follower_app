@@ -1,0 +1,12 @@
+<% if github_connected? %>
+
+    <h2>People You Follow</h2>
+
+    <% @github_following.each do |gh_user| %>
+        <%= image_tag gh_user['avatar_url'], class: 'github_avatar' %>
+        <%= gh_user['login'] %>
+        <br />
+    <% end %>
+
+<% end %>
+
