@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         else
             # Re-render the template that led here. Errors will be displayed
             # because there is a @user instance variable now.
-            render "welcome/index"
+            render :index
         end
     end
 
@@ -22,4 +22,5 @@ class UsersController < ApplicationController
             :password_confirmation
         )
     end
+
 end

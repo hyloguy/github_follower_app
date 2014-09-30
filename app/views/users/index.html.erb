@@ -2,5 +2,5 @@
     Logged in as <%= current_user.username %>.
     <%= link_to 'Logout', sessions_path, method: :delete %>
 <% else %>
-    <%= render partial: "welcome/user_forms" %>
+    <%= render partial: 'user_forms' %>
 <% end %>

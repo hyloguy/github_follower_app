@@ -1,0 +1,98 @@
+<section id="user_registration">
+    <h1>Registration</h1>
+
+    <%#
+
+    Since we want to use the parameters of this form as the input hash for a new
+    User object, we'll use a form_for() helper, which uses its understanding of
+    Rails naming conventions to correctly wire up the names of the input elements.
+
+    By passing in an empty User object, we tell the form not only what the name
+    of the model for this form is ("user"), but also cause it to calculate the
+    action ("/users") automatically.
+
+    %>
+
+    <%= form_for User.new do |f| %>
+
+        <% if @user %>
+
+            <%#
+                This template is rendered by two actions in two separate controllers:
+
+                    welcome#index (WelcomeController's index method, routed to 'GET /')
+                    users#create (UsersController's create method, routed to 'POST /users')
+
+                However, welcome#index will never provide a @user object, since it's the
+                first page anyone lands on. If we try to render the error list with a
+                nonexistant model instance variable, we'll get an error when we try to
+                call errors() on it in the partial.
+
+                So, this is wrapped in an if statement.
+            %>
+
+            <%# Specifying the :partial key is required when passing extra options like :locals. %>
+            <%= render partial: "shared/form_error_list", locals: { model: @user } %>
+
+        <% end %>
+
+        <p>
+            <%= f.label :username %>
+            <%= f.text_field :username %>
+        </p>
+
+        <p>
+            <%= f.label :password %>
+            <%= f.password_field :password %>
+        </p>
+
+        <p>
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation %>
+        </p>
+
+        <p>
+            <%= f.submit %>
+        </p>
+
+    <% end %>
+</section>
+
+<section id="user_login">
+    <h1>Login</h1>
+
+    <%#
+
+    For the login form, we use form_tag() instead of form_for() because there is no
+    associated model object. However, we still want the request authenticity token,
+    so we still use a helper instead of writing the tag manually.
+
+    Since form_tag() is inherently simpler than form_for(), it does not use the
+    self-yield pattern, and so the block takes no parameters (unlike form_for(),
+    above, where we define 'f' to access the FormBuilder object).
+
+    No FormBuilder object is needed because the tags in this form don't need
+    any extra information to be displayed. In fact, you can use the label_tag,
+    text_field_tag, and similar methods ANYWHERE in an ERB template, because
+    they're just basic HTML helpers.
+
+    %>
+
+    <%= form_tag sessions_path do %>
+
+        <p>
+            <%= label_tag :username %>
+            <%= text_field_tag :username %>
+        </p>
+
+        <p>
+            <%= label_tag :password %>
+            <%= password_field_tag :password %>
+        </p>
+
+        <p>
+            <%= submit_tag "Login" %>
+        </p>
+
+    <% end %>
+</section>
