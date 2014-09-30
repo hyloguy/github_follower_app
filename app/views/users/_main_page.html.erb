@@ -1,0 +1,7 @@
+<% if current_user.github_token %>
+
+<% else %>
+
+    <%= link_to 'Connect My GitHub Account', github_path %>
+
+<% end %>
