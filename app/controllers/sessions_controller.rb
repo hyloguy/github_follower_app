@@ -1,16 +1,28 @@
 class SessionsController < ApplicationController
 
-	def create
-		@user = User.find_by :username => params[:username]
+    def create
+        @user = User.find_by :username => params[:username]
 
-		# Old way
-		# if @user.password_matches?(params[:password])
-		if @user.authenticate params[:password]
-			session[:current_user_id] = @user.id
-			render :plain => "Hooray!"
-		else
-			render :plain => "Nope!"
-		end
-	end
+        if @user.nil?
+            flash[:error] = "No such user."
+
+        elsif @user.authenticate params[:password]
+            session[:current_user_id] = @user.id
+            flash[:notice] = "Thank you for logging in, #{@user.username}."
+
+        else
+            flash[:error] = "Incorrect password."
+        end
+
+        redirect_to root_path
+    end
+
+    def destroy
+        session[:current_user_id] = nil
+        flash[:notice] = "You have been logged out."
+
+        redirect_to root_path
+    end
+
 
 end
