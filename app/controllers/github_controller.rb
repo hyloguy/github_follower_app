@@ -1,13 +1,11 @@
-require 'github_api'
-
 class GithubController < ApplicationController
 
     def begin
-        redirect_to GitHub.begin_url(github_code_url)
+        redirect_to @github.begin_url
     end
 
     def code
-        results = GitHub.get_token params[:code]
+        results = @github.get_token params[:code]
 
         p results
 

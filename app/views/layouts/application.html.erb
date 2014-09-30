@@ -11,8 +11,21 @@
         <div id="container">
             <% if logged_in? %>
                 <section id="logged_in">
+
                     Logged in as <%= current_user.username %>.
+
                     <%= link_to 'Logout', sessions_path, method: :delete %>
+
+                    <br /><br />
+
+                    <% if github_connected? %>
+                        Connected to GitHub account
+                        <%= image_tag @github_user['avatar_url'], class: 'github_avatar' %>
+                        <%= @github_user['login'] %>
+                    <% else %>
+                        <%= link_to 'Connect GitHub Account', github_path %>
+                    <% end %>
+
                 </section>
             <% end %>
 

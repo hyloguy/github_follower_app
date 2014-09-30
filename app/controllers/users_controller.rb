@@ -1,5 +1,11 @@
 class UsersController < ApplicationController
 
+    def index
+        if github_connected?
+            @github_user = @github.make_request 'user'
+        end
+    end
+
     def create
         @user = User.new user_params
 
