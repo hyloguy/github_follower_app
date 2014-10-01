@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     delete 'sessions' => 'sessions#destroy'
 
     get 'github' => 'github#begin'
-    get 'github/code' => 'github#code'
+    get 'github/code'
+    post 'github/follow'
 
 end

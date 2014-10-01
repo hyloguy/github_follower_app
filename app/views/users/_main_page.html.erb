@@ -1,5 +1,14 @@
 <% if github_connected? %>
 
+    <h2>Follow Someone</h2>
+
+    <%= form_tag github_follow_path do %>
+
+        <%= text_field_tag :username %>
+        <%= submit_tag 'Follow' %>
+
+    <% end %>
+
     <h2>People You Follow</h2>
 
     <% @github_following.each do |gh_user| %>

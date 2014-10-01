@@ -2,8 +2,8 @@ class UsersController < ApplicationController
 
     def index
         if github_connected?
-            @github_user = @github.make_request 'user'
-            @github_following = @github.make_request 'user/following'
+            @github_user = @github.get_my_info
+            @github_following = @github.get_my_following
         end
     end
 
