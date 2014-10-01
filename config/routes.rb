@@ -4,7 +4,10 @@ Rails.application.routes.draw do
 
     resources :users
 
+    # Login
     post 'sessions' => 'sessions#create'
+
+    # Logout
     delete 'sessions' => 'sessions#destroy'
 
     get 'github' => 'github#begin'
